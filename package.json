@@ -1,0 +1,23 @@
+{
+  "name": "api-server",
+  "version": "0.0.1",
+  "description": "Backend server for the QR Code Password Manager",
+  "main": "index.js",
+    "scripts": {  
+    "test": "node test.js"  
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QRcodePasswordManager/API-Server.git"
+  },
+  "keywords": [
+    "password",
+    "manager"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/QRcodePasswordManager/API-Server/issues"
+  },
+  "homepage": "https://github.com/QRcodePasswordManager/API-Server#readme"
+}
