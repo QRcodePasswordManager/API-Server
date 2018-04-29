@@ -18,6 +18,7 @@ app.get('/session/:id', function (req, res) {
    var authentication = req["identification"];
 
    var session = sessions[rcv_id];
+   console.log("Received id: " + rcv_id);
    // lacks identity verification
    if(session !== undefined && session.hidden_user !== undefined) {
       data = {};
@@ -31,12 +32,15 @@ app.get('/session/:id', function (req, res) {
 });
 
 app.post('/session/:id', function (req, res) {
-   session = sessions[req.params.id];
+   session = sessions[""+req.params.id];
    if(session == undefined) {
+       console.log("undefined session");
        res.end();
    }
+   console.log("Post received");
    session["hidden_user"] = req["hidden_user"];
    session["hidden_password"] = req["hidden_password"];
+   sessions[""+req.params.id] = session;
    res.end();
 });
 
