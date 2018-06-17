@@ -1,13 +1,29 @@
+"use strict";
 var express = require('express');
 var app = express();
 var fs = require("fs");
 var id = 1;
 var sessions = {};
+var data = {}
+
+// Session state info
+class Session {
+  constructor(id, domain, client_key) {
+    this.id = id;
+    this.domain = domain;
+    this.client_key = client_key;
+  }
+  
+  registerCipheredCredentials(user,password) {
+    this.user = user;
+    this.password = password;
+  }
+}
 
 app.post('/sessionCreator', function (req, res) {
-   sessions[""+id] = {"domain": req["domain"], "client_key": req["client_key"] }; // lacks proof of id
+   sessions[id] = {"domain": req["domain"], "client_key": req["client_key"] }; // lacks proof of id
    data = {};
-   data["session_id"] = ""+id;
+   data["session_id"] = id;
    id++;
    console.log(data);
    res.end(JSON.stringify(data));
@@ -32,16 +48,17 @@ app.get('/session/:id', function (req, res) {
 });
 
 app.post('/session/:id', function (req, res) {
-   session = sessions[""+req.params.id];
-   if(session == undefined) {
+   session = sessions[req.params.id];
+   if(session === undefined) {
        console.log("undefined session");
        res.end();
    }
    console.log("Post received");
    session["hidden_user"] = req["hidden_user"];
    session["hidden_password"] = req["hidden_password"];
-   sessions[""+req.params.id] = session;
+   sessions[req.params.id] = session;
    res.end();
+   console.log(sessions);
 });
 
    
