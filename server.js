@@ -54,18 +54,15 @@ app.get('/session/:id', function (req, res) {
   var rcv_id = req.params.id;
   var session = sessions[rcv_id];
 
-  // lacks identity verification
+  //lacks identity verification; should only send the data if the authentication token
+  //is the one of the session; 
+  //maybe use DH?
   //var authentication = req["identification"];
 
-  if(session !== undefined && session.containsCredentials()) {
-    // if the session exists and contains credentials   
+  if(session !== undefined) {
+    // if the session exists
     console.log("Requested Session: " + rcv_id);
-    var data = {};
-    data["user"] = session.user;
-    data["password"] = session.password;
-    res.end(JSON.stringify(data));
-  } else if(session !== undefined) {
-    console.log("Session without credentials requested.");
+    res.end(JSON.stringify(session));
   } else {
     console.log("Undefined Session requested.");
     res.end();
