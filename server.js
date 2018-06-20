@@ -16,7 +16,7 @@ class Session {
     this.domain = domain;
     this.client_key = client_key;
   }
-  
+
   registerCipheredCredentials(user,password) {
     this.user = user;
     this.password = password;
@@ -32,9 +32,9 @@ class Session {
 app.post('/sessionCreator', function (req, res) {
   // still lacks proof of authenticity
   console.log("Body: " + JSON.stringify(req.body));
-  sessions[id] = new Session(id, req.body["domain"], req.body["client_key"]); 
+  sessions[id] = new Session(id, req.body["domain"], req.body["client_key"]);
   console.log("Session created: " + id);
-  res.end("{session: " + id + "}\n");
+  res.end("{\"session\": " + id + "}\n");
   id++;
   //console.log(sessions);
 });
@@ -55,7 +55,7 @@ app.get('/session/:id', function (req, res) {
   var session = sessions[rcv_id];
 
   //lacks identity verification; should only send the data if the authentication token
-  //is the one of the session; 
+  //is the one of the session;
   //maybe use DH?
   //var authentication = req["identification"];
 
