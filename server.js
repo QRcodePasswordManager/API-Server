@@ -2,10 +2,12 @@
 var express = require('express');
 var fs = require("fs");
 var bodyParser = require("body-parser");
+var cors = require('cors')
 
 //server application and data
 var app = express();
 app.use(express.json());
+app.use(cors());
 var id = 1;
 var sessions = {};
 
